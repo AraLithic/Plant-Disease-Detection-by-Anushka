@@ -114,8 +114,7 @@ st.markdown("""
 def load_model():
     if not os.path.exists(MODEL_PATH):
         with st.spinner("Downloading AI model weights from Google Drive (First-time setup)..."):
-            url = f"https://drive.google.com/uc?id={GDRIVE_FILE_ID}"
-            gdown.download(url, MODEL_PATH, quiet=False)
+            gdown.download(id=GDRIVE_FILE_ID, output=MODEL_PATH, quiet=False, fuzzy=True)
     return YOLO(MODEL_PATH)
 
 try:
