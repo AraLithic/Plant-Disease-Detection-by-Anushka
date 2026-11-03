@@ -1,4 +1,4 @@
-## 🌿 Plant Detection using YOLOv8
+## 🌿 Plant Detection using YOLOv8 by Anushka Sahu
 
 A computer vision-based project that uses **YOLOv8** to detect and classify plant leaves in real time, helping identify healthy and diseased plants efficiently to support smart agriculture solutions.
 
@@ -14,11 +14,6 @@ The system is designed to accurately detect and classify plant diseases from ima
 The goal of this project is to help farmers and researchers identify plant diseases early, ensuring better crop health and productivity.
 
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-
-## 🌐 Live Demo
-
-Click here to try the live app 👉 [Plant Diseases Detection App](https://plant-dectection.streamlit.app/)
 
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -231,26 +226,6 @@ https://github.com/user-attachments/assets/721ff69f-94c4-4e19-a1f6-907eab541693
 - [PyTorch Documentation](https://pytorch.org/docs/stable/index.html) — Deep learning framework used to train and test the model.  
 - [OpenCV Documentation](https://docs.opencv.org/) — Used for image preprocessing and visualization.  
 - [Ultralytics YOLO Docs](https://docs.ultralytics.com/) — Detailed usage guide and examples for YOLOv8.  
-
-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-## 👤 Author
-
-Muqadas Ejaz
-
-BS Computer Science (AI Specialization)
-
-AI/ML Engineer
-
-Kaggle Grand Master
-
-Data Science & Gen AI 
-
-📫 Connect with me on [LinkedIn](https://www.linkedin.com/in/muqadasejaz/)  
-
-🌐 GitHub: [github.com/muqadasejaz](https://github.com/muqadasejaz)
-
-📬 Kaggle: [Kaggle Profile](https://www.kaggle.com/muqaddasejaz) 
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
