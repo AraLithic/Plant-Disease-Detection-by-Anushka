@@ -10,7 +10,6 @@ from ultralytics import YOLO
 # CONFIG
 # ─────────────────────────────────────────────
 MODEL_PATH = "best.pt"
-# Your specific Google Drive File ID for best.pt
 GDRIVE_FILE_ID = "1rJ7xvaDRg_vpFr7ZGt76qRrUhgjGzU_8"
 
 DISEASE_INFO = {
@@ -29,83 +28,58 @@ DISEASE_INFO = {
 st.set_page_config(page_title="Plant Disease AI | Anushka Sahu", page_icon="🌿", layout="wide")
 
 # ─────────────────────────────────────────────
-# CUSTOM CSS (Coolors Palette Integration)
-# Palette: #143601, #1a4301, #245501, #538d22, #73a942, #aad576
+# CUSTOM CSS (Cleaned HTML injection)
 # ─────────────────────────────────────────────
-st.markdown("""
+custom_css = """
 <style>
-    /* Main Background */
-    .stApp {
-        background-color: #143601;
-        color: #e8f5e9;
-    }
-    
-    /* Sidebar */
-    [data-testid="stSidebar"] {
-        background-color: #1a4301;
-        border-right: 2px solid #245501;
-    }
-    
-    /* Headings */
-    h1, h2, h3 {
-        color: #aad576 !important;
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    }
-    
-    /* Buttons */
-    .stButton>button {
-        background-color: #538d22;
-        color: white;
-        border: none;
-        border-radius: 6px;
-        font-weight: bold;
-    }
-    .stButton>button:hover {
-        background-color: #73a942;
-        color: white;
-        border: none;
-    }
-    
-    /* Sliders */
-    .stSlider [data-baseweb="slider"] div {
-        background-color: #aad576;
-    }
-    
-    /* Expanders & Cards */
-    div[data-testid="stExpander"] {
-        background-color: #245501;
-        border: 1px solid #538d22;
-        border-radius: 6px;
-    }
-    div[data-testid="stExpander"] summary {
-        color: #aad576;
-        font-weight: bold;
-    }
-    div[data-testid="stExpander"] summary:hover {
-        color: #ffffff;
-    }
-    
-    /* Info/Success Boxes */
-    div.stAlert {
-        background-color: #245501;
-        color: white;
-        border: 1px solid #73a942;
-    }
-    
-    /* Custom Info Panel in Sidebar */
-    .student-panel {
-        background-color: #245501;
-        padding: 15px;
-        border-radius: 8px;
-        border-left: 5px solid #aad576;
-        margin-bottom: 20px;
-    }
-    .student-panel p {
-        margin: 2px 0;
-        font-size: 15px;
-    }
+.stApp {
+    background-color: #143601;
+    color: #e8f5e9;
+}
+[data-testid="stSidebar"] {
+    background-color: #1a4301;
+    border-right: 2px solid #245501;
+}
+h1, h2, h3 {
+    color: #aad576 !important;
+}
+.stButton>button {
+    background-color: #538d22;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-weight: bold;
+}
+.stButton>button:hover {
+    background-color: #73a942;
+    color: white;
+    border: none;
+}
+div[data-testid="stExpander"] {
+    background-color: #245501;
+    border: 1px solid #538d22;
+    border-radius: 6px;
+}
+div[data-testid="stExpander"] summary {
+    color: #aad576;
+    font-weight: bold;
+}
+div.stAlert {
+    background-color: #245501;
+    color: white;
+    border: 1px solid #73a942;
+}
+.student-card {
+    background-color: #245501;
+    padding: 14px;
+    border-radius: 8px;
+    border-left: 5px solid #aad576;
+    margin-bottom: 15px;
+    color: #ffffff;
+}
 </style>
-""", unsafe_allow_html=True)
+"""
+st.html(custom_css)
 
 # ─────────────────────────────────────────────
 # LOAD MODEL (Auto-downloads if missing)
@@ -198,19 +172,18 @@ def run_video_detection(model, video_path: str, conf_threshold: float):
 
     return out_path, all_detections
 
-
 # ─────────────────────────────────────────────
 # UI - SIDEBAR
 # ─────────────────────────────────────────────
 with st.sidebar:
-    st.markdown("""
-    <div class="student-panel">
-        <h3 style="margin-top: 0; color: #aad576 !important;">Science Exhibition</h3>
-        <p><b>Name:</b> Anushka Sahu</p>
-        <p><b>Class:</b> 11th D</p>
-        <p><b>Roll:</b> 5</p>
+    st.html("""
+    <div class="student-card">
+        <h3 style="margin: 0 0 6px 0; color: #aad576;">Science Exhibition</h3>
+        <p style="margin: 2px 0;"><b>Name:</b> Anushka Sahu</p>
+        <p style="margin: 2px 0;"><b>Class:</b> 11th D</p>
+        <p style="margin: 2px 0;"><b>Roll:</b> 5</p>
     </div>
-    """, unsafe_allow_html=True)
+    """)
 
     st.markdown("### Settings")
     conf_threshold = st.slider(
@@ -250,14 +223,14 @@ with tab_image:
 
         with col1:
             st.markdown("### Input Sample")
-            st.image(image, use_column_width=True)
+            st.image(image, use_container_width=True)
 
         with st.spinner("Executing YOLOv8 inference..."):
             annotated_image, detections = run_detection(model, image, conf_threshold)
 
         with col2:
             st.markdown("### AI Output")
-            st.image(annotated_image, use_column_width=True)
+            st.image(annotated_image, use_container_width=True)
 
         if detections:
             st.markdown(f"### 🔍 Detected Conditions ({len(detections)})")
