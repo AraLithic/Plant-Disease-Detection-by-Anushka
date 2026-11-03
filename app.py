@@ -2,6 +2,7 @@ import streamlit as st
 import os
 import tempfile
 import numpy as np
+import gdown
 from PIL import Image
 from ultralytics import YOLO
 
@@ -9,6 +10,8 @@ from ultralytics import YOLO
 # CONFIG
 # ─────────────────────────────────────────────
 MODEL_PATH = "best.pt"
+# Your specific Google Drive File ID for best.pt
+GDRIVE_FILE_ID = "1rJ7xvaDRg_vpFr7ZGt76qRrUhgjGzU_8"
 
 DISEASE_INFO = {
     "Apple Scab": "Fungal disease causing dark, scabby lesions on leaves and fruit.",
@@ -105,13 +108,14 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # ─────────────────────────────────────────────
-# LOAD MODEL
+# LOAD MODEL (Auto-downloads if missing)
 # ─────────────────────────────────────────────
 @st.cache_resource(show_spinner=False)
 def load_model():
     if not os.path.exists(MODEL_PATH):
-        st.error(f"Error: Could not find '{MODEL_PATH}'. Please ensure your trained model is in the same folder as this script.")
-        st.stop()
+        with st.spinner("Downloading AI model weights from Google Drive (First-time setup)..."):
+            url = f"https://drive.google.com/uc?id={GDRIVE_FILE_ID}"
+            gdown.download(url, MODEL_PATH, quiet=False)
     return YOLO(MODEL_PATH)
 
 try:
