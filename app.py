@@ -82,14 +82,24 @@ div.stAlert {
 st.html(custom_css)
 
 # ─────────────────────────────────────────────
-# LOAD MODEL (Auto-downloads if missing)
+# LOAD MODEL (Fast Streaming Direct Download)
 # ─────────────────────────────────────────────
 @st.cache_resource(show_spinner=False)
 def load_model():
     if not os.path.exists(MODEL_PATH):
+        import requests
         with st.spinner("Downloading AI model weights from Google Drive (First-time setup)..."):
-            url = f"https://drive.google.com/uc?id={GDRIVE_FILE_ID}"
-            gdown.download(url, output=MODEL_PATH, quiet=False)
+            session = requests.Session()
+            url = "https://docs.google.com/uc?export=download"
+            # The "confirm=t" parameter bypasses the large file virus scan warning
+            params = {"id": GDRIVE_FILE_ID, "confirm": "t"}
+            response = session.get(url, params=params, stream=True)
+            
+            with open(MODEL_PATH, "wb") as f:
+                for chunk in response.iter_content(chunk_size=32768):
+                    if chunk:
+                        f.write(chunk)
+                        
     return YOLO(MODEL_PATH)
 
 try:
@@ -97,7 +107,6 @@ try:
 except Exception as e:
     st.error(f"Failed to load model: {e}")
     st.stop()
-
 # ─────────────────────────────────────────────
 # HELPER FUNCTIONS
 # ─────────────────────────────────────────────
