@@ -65,7 +65,7 @@ The goal of this project is to help farmers and researchers identify plant disea
 
 ### 1. Clone the Repository
 ```bash
-git clone https://github.com/muqadasejaz/-Plant-Detection-using-YOLOv8
+git clone https://github.com/AraLithic/Plant-Disease-Detection-by-Anushka
 ```
 
 ### 2. Install Dependencies
